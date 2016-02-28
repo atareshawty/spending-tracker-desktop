@@ -1,14 +1,17 @@
 {
-  "name": "app",
-  "productName": "App",
+  "name": "spendingtrackerdesktop",
+  "productName": "Spending Tracker Desktop",
   "version": "0.0.0",
   "description": "",
   "license": "MIT",
-  "repository": "user/repo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atareshawty/spending-tracker-desktop.git"
+  },
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "Alex Tareshawty",
+    "email": "atareshawty",
+    "url": "https://github.com/atareshawty"
   },
   "electronVersion": "0.36.0",
   "scripts": {
