@@ -13,7 +13,7 @@
     "email": "atareshawty",
     "url": "https://github.com/atareshawty"
   },
-  "electronVersion": "0.36.0",
+  "electronVersion": "0.36.8",
   "scripts": {
     "test": "xo",
     "start": "electron .",
