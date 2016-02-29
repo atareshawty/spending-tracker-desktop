@@ -3,7 +3,12 @@ const electron = require('electron');
 const app = electron.app;
 
 // report crashes to the Electron project
-require('crash-reporter').start();
+require('crash-reporter').start({
+  productName: 'Spending Tracker',
+  companyName: 'TheCompany',
+  submitURL: 'http://thingsgohere.com',
+  autoSubmit: true
+});
 
 // adds debug features like hotkeys for triggering dev tools and reload
 require('electron-debug')();
