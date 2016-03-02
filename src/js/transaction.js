@@ -1,3 +1,4 @@
+'use strict';
 window.Purchases = (function() {
   var cost, location, category, date, submitButton;
   
@@ -51,8 +52,8 @@ window.Purchases = (function() {
 
   function sendAndInsertNewPurchase() {
     if (validatePurchase()) {
-      var href = document.URL;
-      var username = href.substring(href.lastIndexOf('/') + 1);
+      var username = localStorage.getItem('username');
+      var sessionID = localStorage.getItem('sessionID');
       var sendCost = cost.val();
       sendCost = sendCost.slice(0, sendCost.length - 3) + sendCost.slice(sendCost.length - 2);
       var purchase = {
@@ -61,9 +62,7 @@ window.Purchases = (function() {
         category: category.val(),
         date: date.val()
       };
-      var url = '/api/spending/' + username + '/?cost=' + purchase.cost 
-                + '&location=' + purchase.location + '&category=' + purchase.category
-                + '&date=' + purchase.date;
+      let url = `${awsURL}/api/spending/${username}/?cost=${purchase.cost}&location=${purchase.location}&category=${purchase.category}&date=${purchase.date}&sessionID=${sessionID}`;
       fetch(url,  {
         credentials: 'same-origin',
         method: 'post'
@@ -103,7 +102,6 @@ window.Purchases = (function() {
       location: $(locationQueryString).text(),
       date: $(dateQueryString).text()
     };
-    console.log('purchase to delete', purchaseToDelete);
     App.removeUserPurchase(rowIndex);
     App.buildPieChart();
     App.buildTable();
@@ -139,11 +137,10 @@ window.Purchases = (function() {
   }
 
   function sendDeletePurchaseFetch(purchase) {
-    var href = document.URL;
-    var username = href.substring(href.lastIndexOf('/') + 1);
-    var url = '/api/spending/' + username + '/?cost=' + purchase.cost 
-            + '&location=' + purchase.location + '&category=' + purchase.category
-            + '&date=' + purchase.date;
+    debugger;
+    let username = localStorage.getItem('username');
+    let sessionID = localStorage.getItem('sessionID');
+    let url = `${awsURL}/api/spending/${username}?sessionID=${sessionID}&cost=${purchase.cost}&location=${purchase.location}&category=${purchase.category}&date=${purchase.date}`;
     fetch(url, {
       credentials: 'same-origin',
       method: 'delete'

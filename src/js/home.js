@@ -16,7 +16,6 @@ if (!localStorage.getItem('username') && !localStorage.getItem('userPassword')) 
     }).then(function(res) {
       return res.json();
     }).then(function(user) {
-      debugger;
       App.setUser(user);
       let userTemplate = Handlebars.compile(source);
       let compiledHTML = userTemplate(App.getUser());
