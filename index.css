@@ -25,3 +25,27 @@ header h1 {
 	margin: 0;
 	padding: 0;
 }
+
+.app-title {
+  text-align: center;
+}
+
+.container {
+  width: auto;
+  max-width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.chart {
+  width: 100%;
+}
+
+.spending-table-container {
+  height: 208px;
+  width: 100%
+}
+
+.income-table-container {
+  height: 208px;
+}
