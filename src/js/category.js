@@ -1,3 +1,4 @@
+'use strict';
 window.Categories = (function() {
   var categoryInput;
   var categorySubmitButton;
@@ -58,9 +59,10 @@ window.Categories = (function() {
   }
 
   function sendNewCategoryWithFetch(category) {
-    var href = document.URL;
-    var username = href.substring(href.lastIndexOf('/') + 1);
-    var url = '/api/category/' + username + '/?category=' + category;
+    debugger;
+    let username = localStorage.getItem('username');
+    let sessionID = localStorage.getItem('sessionID');
+    let url = `${awsURL}/api/category/${username}/?category=${category}&sessionID=${sessionID}`;
     fetch(url, {
       credentials: 'same-origin',
       method: 'post'
