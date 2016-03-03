@@ -1,0 +1,79 @@
+<div class="one-third column"><h3><a class="refresh-button">Clear Filter</a></h3></div>
+<div class="one-third column"><h2 class="welcome-username">Welcome, {{username}}!</h2></div>
+<div class="one-third column"><h3><a class="logout-button">Logout</a></h3></div>
+<div class="two-thirds column">
+  <h2 class="spending-table-header">Spending</h2>
+  <div class="columns spending-info">
+    <div class="one-half column">
+      <div class="chart-container">
+        <canvas class="chart"></canvas>
+      </div>
+    </div>
+    <div class="one-half column">
+      <div class="spending-table-placeholder"></div>
+    </div>
+  </div>
+  
+  <hr />
+  
+  <h2 class="spending-table-header">Income</h2>
+  <div class="columns">
+    <div class="one-half column">
+      <div class="income-chart-container">
+        <canvas class="income-chart"></canvas>
+      </div>
+    </div>
+    <div class="one-half column">
+        <div class="income-table-placeholder"></div>
+    </div>
+  </div>
+</div>
+
+<div class="one-third column">
+  <!-- Get customized user categories -->
+  <div class="category-form">
+    <dl class="form">
+      <dt><h3>Create a Category</h3></dt>
+      <dd><label>Category</label></dd>
+      <dd><input type="text" id="customCategory", name="category", placeholder="Make your own!"></dd>
+      <dd class="label-button-padding"><input id="submitCategory" type="submit" value="Submit" class="btn btn-primary" disabled="disabled"></dd>
+    </dl>
+  </div>
+
+  <hr />
+
+  <!-- Date Range Filter Selector -->
+  <dl class="form">
+    <dt><h3>Filter Your Spending</h3></dt>
+    <dd><label>From</label></dd>
+    <dd><input type="text" id="from" name="from", placeholder="2015-01-01"></dd>
+    <dd class="label-button-padding"><label>To</label></dd>
+    <dd><input type="text" id="to" name="to", placeholder="2015-01-31"></dd>
+    <dd class="label-button-padding"><input id="submitDate" type="submit" value="Submit" class="btn btn-primary" disabled="disabled"></dd>
+  </dl>
+
+  <hr />
+  
+  <!-- Submit more spending data -->
+  <div class="purchase-form">
+    <dl class="form">
+      <dt><h3>Add a Purchase or Income</h3></dt>
+      <dd><label>Cost</label></dd>
+      <dd><input id="POST-cost" type="text", name="cost" id="cost", placeholder="Ex: 10.99"></dd>
+      <dd class="label-button-padding"><label>Category</label></dd>
+      <dd>
+        <select id="POST-category" name="category">
+        {{#each categories}}
+          <option>{{this}}</option>
+        {{/each}}
+        </select>
+      </dd>
+      <dd class="label-button-padding"><label>Location</label></dd>
+      <dd><input id="POST-location" type="text", name="location", placeholder="Ex: AMC Theater"></dd>
+      <dd class="label-button-padding"><label>Date</label></dd>
+      <dd><input id="POST-date" type="text", name="date", placeholder="Ex: 2015-10-03"></dd>
+      <dd class="label-button-padding"><input id="submitData" type="submit" value="Submit" class="btn btn-primary" disabled="disabled"></dd>
+    </dl>
+  </div>
+
+</div>
