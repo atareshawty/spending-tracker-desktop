@@ -15,6 +15,7 @@ window.App = (function() {
   var formattedFilteredIncomeTotal = '$0.00';
   var filteredSpendingTotal = 0;
   var filteredIncomeTotal = 0;
+  var filterEnabled = false;
   
   return {
     setUser: function(newUser) {
@@ -68,13 +69,17 @@ window.App = (function() {
           end--;
         }
         if (begin <= end) {
+          filterEnabled = true;
           filteredSpending =  user.spending.slice(begin, end + 1);
         } else if (begin > end){
+          filterEnabled = true;
           filteredSpending = [];
         } else {
+          filterEnabled = false;
           filteredSpending = user.spending;
         }  
       } else {
+        filterEnabled = false;
         filteredSpending = user.spending;
       }
       
@@ -131,6 +136,14 @@ window.App = (function() {
 
     getUserTotalSpending: function() {
       return user.total;
+    },
+    
+    isFilterEnabled: function() {
+      return filterEnabled;
+    },
+    
+    removeFilterFlag: function() {
+      filterEnabled = false;
     },
 
     addUserCategory: function(category) {
