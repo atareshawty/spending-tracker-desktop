@@ -28,6 +28,7 @@ function createMainWindow() {
 		height: 400
 	});
 
+  win.maximize();
 	win.loadURL(`file://${__dirname}/index.html`);
 	win.on('closed', onClosed);
 
