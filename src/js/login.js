@@ -1,8 +1,8 @@
 'use strict';
 window.Login = (function() {
-  let username = $('input.login-username');
-  let password = $('input.login-password');
-  let loginButton = $('input.login-button');
+  let username;
+  let password;
+  let loginButton;
   return {
     init: function() {
       username = $('input.login-username');
@@ -26,7 +26,6 @@ window.Login = (function() {
   }
   
   function sendLoginRequest() {
-    debugger;
     let usernameVal = username.val();
     let passwordVal = password.val();
     let formData = {
@@ -34,9 +33,8 @@ window.Login = (function() {
       password: passwordVal
     };
     let url = `${awsURL}/api/users/login`;
-    $.post(url, formData, function(sessionID) {
+    $.post({url: url, 500: handle500}, formData, function(sessionID) {
       localStorage.setItem('username', usernameVal);
-      localStorage.setItem('password', passwordVal);
       localStorage.setItem('sessionID', sessionID);
       window.location.reload();
     }).fail(function() {
@@ -45,5 +43,13 @@ window.Login = (function() {
       loginButton.attr('disabled', true);
       alert('Username or password is incorrect. Try again');
     });
+  }
+  
+  function handle500() {
+    alert('Sorry! There was a server error');
+  }
+  
+  function handle200() {
+    
   }
 }());
