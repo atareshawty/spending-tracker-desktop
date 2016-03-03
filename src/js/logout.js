@@ -4,7 +4,6 @@ window.Logout = (function() {
   return {
     init: function() {
       $('.logout-button').on('click', function() {
-        alert('blah!');
         sendLogoutRequest();
       });
     }
