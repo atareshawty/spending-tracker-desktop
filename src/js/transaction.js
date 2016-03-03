@@ -1,6 +1,6 @@
 'use strict';
 window.Purchases = (function() {
-  var cost, location, category, date, submitButton;
+  let cost, location, category, date, submitButton;
   
   return {
     init: function() {
@@ -66,19 +66,24 @@ window.Purchases = (function() {
       fetch(url,  {
         credentials: 'same-origin',
         method: 'post'
-      });
-      if (purchase.category != 'Income') {
-        App.addUserPurchase(purchase);    
-        App.buildTable();
-        App.buildPieChart();
-      } else {
-        App.addUserIncome(purchase);
-        App.buildIncomeTable();
-      }
+      }).then(function(res) {
+        return res;
+      }).then(function() {
+        if (purchase.category != 'Income') {
+          App.addUserPurchase(purchase);    
+          App.buildTable();
+          App.buildPieChart();
+        } else {
+          App.addUserIncome(purchase);
+          App.buildIncomeTable();
+        }
 
-      App.buildCompareChart();
-      clearPurchaseForm();
-      $('html, body').animate({ scrollTop: 0 }, 'medium');
+        App.buildCompareChart();
+        clearPurchaseForm();
+      }).catch(function() {
+        alert('Sorry! There was a problem with your request');
+      });
+      
     } else {
       clearPurchaseForm();
       $('html, body').animate({ scrollTop: 0 }, 'medium');
@@ -102,13 +107,7 @@ window.Purchases = (function() {
       location: $(locationQueryString).text(),
       date: $(dateQueryString).text()
     };
-    App.removeUserPurchase(rowIndex);
-    App.buildPieChart();
-    App.buildTable();
-    App.buildIncomeTable();
-    App.buildCompareChart();
-    sendDeletePurchaseFetch(purchaseToDelete);
-    $('html, body').animate({ scrollTop: 0 }, 'medium');
+    sendDeletePurchaseFetch(purchaseToDelete, rowIndex);
   }
 
   function deleteIncome() {
@@ -128,23 +127,33 @@ window.Purchases = (function() {
       location: $(locationQueryString).text(),
       date: $(dateQueryString).text()
     };
-    console.log('purchase to delete', purchaseToDelete);
-    App.removeUserIncome(rowIndex);
-    App.buildIncomeTable();
-    App.buildCompareChart();
-    sendDeletePurchaseFetch(purchaseToDelete);
-    $('html, body').animate({ scrollTop: 0 }, 'medium');
+    sendDeletePurchaseFetch(purchaseToDelete, rowIndex);
   }
 
-  function sendDeletePurchaseFetch(purchase) {
-    debugger;
+  function sendDeletePurchaseFetch(purchase, rowIndex) {
     let username = localStorage.getItem('username');
     let sessionID = localStorage.getItem('sessionID');
     let url = `${awsURL}/api/spending/${username}?sessionID=${sessionID}&cost=${purchase.cost}&location=${purchase.location}&category=${purchase.category}&date=${purchase.date}`;
     fetch(url, {
       credentials: 'same-origin',
       method: 'delete'
-    });
+    }).then(function(res) {
+      return res;
+    }).then(function() {
+      if (purchase.category != 'Income') {
+        App.removeUserPurchase(rowIndex);
+        App.buildPieChart();
+        App.buildTable();
+        App.buildIncomeTable();
+        App.buildCompareChart();
+      } else {
+        App.removeUserIncome(rowIndex);
+        App.buildIncomeTable();
+        App.buildCompareChart();
+      }
+    }).catch(function() {
+      alert('Sorry! We couldn\'t your purchase');
+    })
   }
   function clearPurchaseForm() {
     cost.val('');
