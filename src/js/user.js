@@ -4,8 +4,6 @@
 var username = localStorage.getItem('username');
 var sessionID = localStorage.getItem('sessionID');
 var getSpendingUrl = `${awsURL}/api/users/${username}?sessionID=${sessionID}`;
-console.log(getSpendingUrl);
-debugger;
 //fetch user from remote and fill app with it
 fetch(getSelection, {
   credentials: 'same-origin'
@@ -39,18 +37,3 @@ $('.logout-button').click(function() {
   });
 });
 
-$('.get-spending-button').click(function() {
-  let username = localStorage.getItem('username');
-  let sessionID = localStorage.getItem('sessionID');
-  let getSpendingUrl = `${awsURL}/api/spending/${username}?sessionID=${sessionID}`;
-
-  fetch(getSpendingUrl,  {
-    credentials: 'same-origin'
-  }).then(function(response) {
-    return response.json();
-  }).then(function(spending) {
-    $('.spending-div').html(spending.total);
-  }).catch(function(error) {
-    console.log(error);
-  });
-});

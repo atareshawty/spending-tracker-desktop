@@ -50,12 +50,17 @@ header h1 {
   height: 208px;
 }
 
-.refresh-button {
+.clear-filter {
   text-align: left;
 }
 
 .logout-button {
   text-align: right;
+  float: right;
+}
+
+.refresh-data {
+  float: left;
 }
 
 .welcome-username {

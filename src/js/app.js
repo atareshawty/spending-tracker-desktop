@@ -59,20 +59,25 @@ window.App = (function() {
     },
 
     getFilteredSpending: function(minDate, maxDate) {
-      var begin = 0, end = user.spending.length - 1;
-      while ( begin < user.spending.length && user.spending[begin].date.localeCompare(minDate) < 0) {
-        begin++;
-      }
-      while ( end >= 0 && user.spending[end].date.localeCompare(maxDate) > 0 ) {
-        end--;
-      }
-      if (begin <= end) {
-        filteredSpending =  user.spending.slice(begin, end + 1);
-      } else if (begin > end){
-        filteredSpending = [];
+      if (minDate && maxDate) {
+        let begin = 0, end = user.spending.length - 1;
+        while ( begin < user.spending.length && user.spending[begin].date.localeCompare(minDate) < 0) {
+          begin++;
+        }
+        while ( end >= 0 && user.spending[end].date.localeCompare(maxDate) > 0 ) {
+          end--;
+        }
+        if (begin <= end) {
+          filteredSpending =  user.spending.slice(begin, end + 1);
+        } else if (begin > end){
+          filteredSpending = [];
+        } else {
+          filteredSpending = user.spending;
+        }  
       } else {
         filteredSpending = user.spending;
       }
+      
       return filteredSpending;
     },
     
