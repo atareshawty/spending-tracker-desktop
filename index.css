@@ -49,3 +49,15 @@ header h1 {
 .income-table-container {
   height: 208px;
 }
+
+.refresh-button {
+  text-align: left;
+}
+
+.logout-button {
+  text-align: right;
+}
+
+.welcome-username {
+  text-align: center;
+}

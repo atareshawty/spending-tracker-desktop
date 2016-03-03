@@ -4,7 +4,7 @@ let awsURL = 'http://ec2-54-172-168-185.compute-1.amazonaws.com';
 if (!localStorage.getItem('username') && !localStorage.getItem('userPassword')) {
   $.get('./src/views/login.html', function(data) {
     $('.content').html(data);
-    App.validateLogin();
+    Login.init();
   });
 } else {
   $.get('./src/views/templates/user.handlebars', function(source) {
@@ -27,7 +27,8 @@ if (!localStorage.getItem('username') && !localStorage.getItem('userPassword')) 
       Categories.init();
       DateFilter.init();
       Purchases.init();
+      Logout.init();
+      Refresh.init();
     });    
   });
-
 }
