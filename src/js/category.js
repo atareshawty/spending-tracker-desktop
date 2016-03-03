@@ -29,8 +29,6 @@ window.Categories = (function() {
     if (validateNewCategory() && !checkForDuplicateCategory()) {
       var category = categoryInput.val();
       sendNewCategoryWithFetch(category);
-      App.addUserCategory(category);
-      categoryDropDown.append($('<option>', {value: category, text: category}));
     } else if (!validateNewCategory()) {
       alert('The length of your new category should be <= 20');
     } else if (checkForDuplicateCategory()) {
@@ -59,13 +57,19 @@ window.Categories = (function() {
   }
 
   function sendNewCategoryWithFetch(category) {
-    debugger;
     let username = localStorage.getItem('username');
     let sessionID = localStorage.getItem('sessionID');
     let url = `${awsURL}/api/category/${username}/?category=${category}&sessionID=${sessionID}`;
     fetch(url, {
       credentials: 'same-origin',
       method: 'post'
+    }).then(function(result){
+      return result;
+    }).then(function(res) {
+      App.addUserCategory(category);
+      categoryDropDown.append($('<option>', {value: category, text: category}));
+    }).catch(function(error) {
+      alert('Sorry, there was an error with inserting a new category', error);
     });
   }
 }());
